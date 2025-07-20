@@ -49,7 +49,6 @@ public class Ssml {
 
 
         // Extract the attributes
-        System.out.println(" Value of name " + name);
         String startTag = "<"+name+">";
         // check if attributes exist
         List<SSMLAttribute> ssmlAttributes = new ArrayList<>();
@@ -64,11 +63,9 @@ public class Ssml {
                 if(key.isEmpty()){
                     throw new IllegalArgumentException("Attributes could not be parsed");
                 }
-                System.out.println( " Key " + key);
                 attributeString = attributeString.substring(attributeString.indexOf("=")+1).trim();
                 // value end index can either be end of string and space
                 int endIndex = !attributeString.contains(" ") ?attributeString.length():attributeString.indexOf(" ");
-                System.out.println("End Index " + endIndex);
                 // value must contain 2 double quotes
 //                String value = attributeString.substring(0, endIndex).trim().replaceAll("\"","");
                 String value = attributeString.substring(0, endIndex).trim();
@@ -76,10 +73,8 @@ public class Ssml {
                     throw new IllegalArgumentException("Attributes could not be parsed");
                 }
                 value = value.replaceAll("\"", "");
-                System.out.println("Key " + key + " Value " + value);
                 ssmlAttributes.add(new SSMLAttribute(key, value));
                 attributeString = attributeString.substring(endIndex);
-                System.out.println("Attribute String " + attributeString);
             }
 
             // Remove Attributes from name if exists
@@ -110,10 +105,7 @@ public class Ssml {
         // Handle Text before and after Children
 
         String before = body.substring(0, body.indexOf("<"));
-        System.out.println("Before " + before );
         String after = body.substring(body.lastIndexOf(">")+1);
-        System.out.println("after " + after );
-        System.out.println("Value of Children " + body.substring(before.length(), body.lastIndexOf(">")+1));
         String children = body.substring(before.length(), body.lastIndexOf(">")+1);
         ArrayList<SSMLNode> childNodes = new ArrayList<>();
         if (!before.isEmpty()){
